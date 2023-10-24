@@ -1,6 +1,9 @@
 package com.betrybe.museumfinder.service;
 
+import static com.betrybe.museumfinder.util.CoordinateUtil.isCoordinateValid;
+
 import com.betrybe.museumfinder.database.MuseumFakeDatabase;
+import com.betrybe.museumfinder.exception.InvalidCoordinateException;
 import com.betrybe.museumfinder.model.Coordinate;
 import com.betrybe.museumfinder.model.Museum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +26,13 @@ public class MuseumService implements MuseumServiceInterface {
 
   @Override
   public Museum createMuseum(Museum museum) {
-    return null;
+    Museum output = null;
+    if(!isCoordinateValid(museum.getCoordinate())) {
+      throw new InvalidCoordinateException();
+    } else {
+      output = db.saveMuseum(museum);
+    }
+    return output;
   }
 
   @Override
