@@ -1,5 +1,8 @@
 package com.betrybe.museumfinder.model;
 
+/**
+ * Classe do Museu.
+ */
 public class Museum {
   private Long id;
   private String name;
@@ -9,6 +12,7 @@ public class Museum {
   private String subject;
   private String url;
   private Coordinate coordinate;
+  private Long legacyId;
 
   public Long getId() {
     return id;
@@ -81,7 +85,5 @@ public class Museum {
   public void setLegacyId(Long legacyId) {
     this.legacyId = legacyId;
   }
-
-  private Long legacyId;
 
 }

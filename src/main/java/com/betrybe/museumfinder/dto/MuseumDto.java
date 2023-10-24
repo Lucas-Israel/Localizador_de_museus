@@ -14,6 +14,8 @@ import com.betrybe.museumfinder.model.Coordinate;
  * @param url do museu.
  * @param coordinate do museu.
  */
-public record MuseumDto(Long id, String name, String description, String address, String collectionType, String subject, String url, Coordinate coordinate) {
+public record MuseumDto(Long id, String name, String description, String address,
+                        String collectionType, String subject, String url,
+                        Coordinate coordinate) {
 
 }
