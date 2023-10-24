@@ -42,18 +42,20 @@ public class MuseumController {
   }
 
   @GetMapping("/closest")
-  public ResponseEntity<MuseumDto> getClosestMuseum(@RequestParam double lat, double lng, Double max) {
+  public ResponseEntity<MuseumDto> getClosestMuseum(@RequestParam(name = "lat") double lat,
+      @RequestParam(name = "lng") double lng,
+      @RequestParam(name = "max_dist_km") Double max) {
     Coordinate coord = new Coordinate(lat, lng);
-    Museum muse = service.getClosestMuseum(coord, max);
+    Museum musee = service.getClosestMuseum(coord, max);
     MuseumDto output = new MuseumDto(
-        muse.getId(),
-        muse.getName(),
-        muse.getDescription(),
-        muse.getAddress(),
-        muse.getCollectionType(),
-        muse.getSubject(),
-        muse.getUrl(),
-        muse.getCoordinate()
+        musee.getId(),
+        musee.getName(),
+        musee.getDescription(),
+        musee.getAddress(),
+        musee.getCollectionType(),
+        musee.getSubject(),
+        musee.getUrl(),
+        musee.getCoordinate()
     );
 
     return ResponseEntity.ok(output);
