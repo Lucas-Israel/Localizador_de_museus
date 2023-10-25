@@ -12,7 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -29,9 +28,9 @@ public class GetMuseumByIdTest {
   @MockBean
   MuseumService service;
 
-  @Test
-  @DisplayName("Testando se getMuseum/id funciona corretamente")
-  void testGetMuseumById() throws Exception {
+  Museum muse = museumForTest();
+
+  private Museum museumForTest() {
     long id = 1;
     Coordinate coord = new Coordinate(12.34, 23.45);
     Museum muse = new Museum();
@@ -44,6 +43,14 @@ public class GetMuseumByIdTest {
     muse.setCoordinate(coord);
     muse.setUrl("eee");
     muse.setLegacyId(id);
+
+    return muse;
+  }
+
+  @Test
+  @DisplayName("01 - Testando se getMuseum/id funciona corretamente")
+  void testGetMuseumById() throws Exception {
+    long id = 1;
     Mockito
         .when(service.getMuseum(id))
         .thenReturn(muse);
@@ -61,5 +68,26 @@ public class GetMuseumByIdTest {
     Mockito.reset(service);
   }
 
+  @Test
+  @DisplayName("02 - Testando se getClosestMuseum funciona corretamente")
+  void testGetClosestMuseum() throws Exception {
+    long id = 1;
+    Coordinate coord = new Coordinate(-20.4435, -54.6478);
+    Mockito
+        .when(service.getClosestMuseum(coord, 10.))
+        .thenReturn(muse);
 
+    mockMvc.perform(
+        get("/museums/closest?lat=-20.4435&lng=-54.6478&max_dist_km=10")
+        .accept(MediaType.APPLICATION_JSON)
+    )
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$.name").value("aaa"));
+
+    Mockito.verify(service).getClosestMuseum(coord, 10.);
+    Mockito.verify(service, times(1)).getClosestMuseum(coord, 10.);
+    Mockito.reset(service);
+
+  }
 }

@@ -28,7 +28,7 @@ public class CollectionTypeTest {
   CollectionTypeService service;
 
   @Test
-  @DisplayName("Testando controller collection type.")
+  @DisplayName("Testando controllerCollectionType.")
   void testController() throws Exception {
     CollectionTypeCount collection = new CollectionTypeCount(new String[]{"hist", "imag"}, 2);
     Mockito
