@@ -6,6 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -28,7 +30,7 @@ public class CollectionTypeTest {
   CollectionTypeService service;
 
   @Test
-  @DisplayName("Testando controllerCollectionType.")
+  @DisplayName("01 - Testando controllerCollectionType")
   void testController() throws Exception {
     CollectionTypeCount collection = new CollectionTypeCount(new String[]{"hist", "imag"}, 2);
     Mockito
