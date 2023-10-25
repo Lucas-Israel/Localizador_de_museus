@@ -62,7 +62,7 @@ public class MuseumController {
     return ResponseEntity.ok(output);
   }
 
-  @GetMapping("museums/{id}")
+  @GetMapping("/{id}")
   public ResponseEntity<MuseumDto> getMuseumById(@PathVariable long id) {
     Museum muse = service.getMuseum(id);
     MuseumDto output = new MuseumDto(
