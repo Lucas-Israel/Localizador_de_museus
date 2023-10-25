@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller do museu.
+ */
 @RestController
 @RequestMapping("/museums")
 public class MuseumController {
@@ -27,6 +30,12 @@ public class MuseumController {
     this.service = service;
   }
 
+  /**
+   * Rota para criar um museu.
+   *
+   * @param body com as informações do museu.
+   * @return o museu criado.
+   */
   @PostMapping
   public ResponseEntity<Museum> postMuseum(@RequestBody MuseumCreationDto body) {
     Museum muse = new Museum();
@@ -42,6 +51,14 @@ public class MuseumController {
     return ResponseEntity.status(HttpStatus.CREATED).body(output);
   }
 
+  /**
+   * Rota para pegar o museu mais proximo baseado nos parametros.
+   *
+   * @param lat latitude do usuario
+   * @param lng longitude do usuario
+   * @param max distancia max
+   * @return o museu se existir de acordo com os paremetros.
+   */
   @GetMapping("/closest")
   public ResponseEntity<MuseumDto> getClosestMuseum(@RequestParam(name = "lat") double lat,
       @RequestParam(name = "lng") double lng,
@@ -62,6 +79,12 @@ public class MuseumController {
     return ResponseEntity.ok(output);
   }
 
+  /**
+   * Rota para pegar museu por ID.
+   *
+   * @param id do museu.
+   * @return o museu.
+   */
   @GetMapping("/{id}")
   public ResponseEntity<MuseumDto> getMuseumById(@PathVariable long id) {
     Museum muse = service.getMuseum(id);

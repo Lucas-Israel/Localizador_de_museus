@@ -11,6 +11,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service de museus.
+ */
 @Service
 public class MuseumService implements MuseumServiceInterface {
 
@@ -39,7 +42,7 @@ public class MuseumService implements MuseumServiceInterface {
   @Override
   public Museum createMuseum(Museum museum) {
     Museum output = null;
-    if(!isCoordinateValid(museum.getCoordinate())) {
+    if (!isCoordinateValid(museum.getCoordinate())) {
       throw new InvalidCoordinateException();
     } else {
       output = db.saveMuseum(museum);
@@ -50,7 +53,7 @@ public class MuseumService implements MuseumServiceInterface {
   @Override
   public Museum getMuseum(Long id) {
     Optional<Museum> muse = db.getMuseum(id);
-    if(muse.isEmpty()) {
+    if (muse.isEmpty()) {
       throw new MuseumNotFoundException();
     } else {
       return muse.get();
